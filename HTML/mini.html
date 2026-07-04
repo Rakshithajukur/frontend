@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management Portal</title>
+
+    <style>
+       
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+       
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        
+        header {
+            background-color: #0066cc;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        header h1 {
+            margin-bottom: 10px;
+        }
+
+        
+nav {
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 15px 25px;
+    display: block;
+}
+
+nav a:hover {
+    background-color: blue;
+}
+
+/* Dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    color: white;
+    padding: 15px 25px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    min-width: 180px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    z-index: 1000;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    display: block;
+    text-decoration: none;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+        
+        .hero {
+            background: linear-gradient(to right, #2193b0, #6dd5ed);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .hero h2 {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: green;
+        }
+
+       
+        .heading {
+            text-align: center;
+            margin: 40px 0 20px;
+            color: #333;
+        }
+
+        
+        .students {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .card {
+            width: 260px;
+            background: white;
+            border-radius: 10px;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 0 10px gray;
+            transition: 0.4s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            width: 120px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            margin-bottom: 15px;
+        }
+
+        /* =========================
+           CSS Grid
+        ========================= */
+        .courses {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 30px;
+        }
+
+        .course {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+            font-size: 22px;
+        }
+
+        /* =========================
+           Registration Form
+        ========================= */
+        form {
+            width: 400px;
+            margin: 40px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        /* =========================
+           Footer
+        ========================= */
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        /* =========================
+           Responsive Design
+        ========================= */
+        @media (max-width:768px) {
+
+            nav {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .students {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 180px;
+    box-shadow: 0 0 10px gray;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+            .courses {
+                grid-template-columns: 1fr;
+            }
+
+            form {
+                width: 90%;
+            }
+
+            .hero h2 {
+                font-size: 28px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Header -->
+
+    <header>
+
+        <h1>Student Management Portal</h1>
+
+        <p>Learn • Practice • Grow</p>
+
+    </header>
+
+    <!-- Navigation -->
+
+    <nav>
+
+        <a href="#">Home</a>
+<div class="dropdown">
+    <a href="#" class="dropbtn">Students</a>
+
+    <div class="dropdown-content">
+        <a href="#">View Students</a>
+        <a href="#">Top Students</a>
+        <a href="#">New Admissions</a>
+        <a href="#">Student Results</a>
+    </div>
+</div>
+        <a href="#">Courses</a>
+
+        <a href="#">Contact</a>
+
+        <a href="login.html">Login</a>
+
+        <a href="signup.html">Signup</a>
+
+    </nav>
+
+    
+
+    <section class="hero">
+
+        <h2>Welcome to Student Management Portal</h2>
+
+        <p>Learn HTML and CSS by building beautiful web pages.</p>
+
+        <button>Explore Courses</button>
+
+    </section>
+
+    <!-- Student Cards -->
+
+    <h2 class="heading">Top Students</h2>
+
+    <section class="students">
+
+        <div class="card">
+
+            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAJQA0AMBIgACEQEDEQH/xAAcAAEBAAIDAQEAAAAAAAAAAAAAAQYHAgQFAwj/xAA6EAABAwMCAwYDBgYBBQAAAAABAAIDBAUREiEGEzEUIkFRYXEHgZEjMkKhscEVFiQzQ2JTJVJyhJL/xAAYAQEAAwEAAAAAAAAAAAAAAAAAAQIDBP/EACIRAQACAgIBBAMAAAAAAAAAAAABAgMREiExEzJBUQQiYf/aAAwDAQACEQMRAD8A22oiKyBERBUREBERAREQERRBUXmXa/2qzaf4nXwU2roJHYK5Ud7tdcWNpK+mlc9uprWSAkj2QeiigVQEREBERAVKiYQFR0UQFBUREHFERAREQVERAREQEREQLEOP+Lm8O0jKemIdcKjaNuM6B5+/kstkcGMc87BoJK0lZZ28VfEiqrZmmWCl3YD91oBwFS9uMbXpXlbT4O4Jvl8Ar6x2JJu/md5Lz7rp3rhO5WuF08GgaDqxCSHM9it4wOpzD3ZI3EeDXArxr/FCISHvYA4fiIC5JyXjvbtjHSY1p43ws40lvcDrVdZA+vhbmOU9ZmDrn/YfmMFbCC/OtVKOGuLIa6lOjlTMmYGnqOjx8wSPmv0PBMyogjmiOpkjQ5p8wV2UtyiJcd68ZmH0RECsoIrhMIImVcJhBAhVRAREQcUREBEREKiIgImFeiCIrlcUHk8XVnYOGLpVZP2VK8jHnjZav+D1rc6irpZGA9pADdR2fpcRv6LLvi9co6ThR9GXgS1rwwN82g6nfpheD8Lb1G61i1Mp9NZRx89zsjEjJTrbj1AI+qwz706fx9cmSW+13Bt2ElVTUDImNwH08Ya4fnuF0L5aau411SaaKCeSE6I2zDIb08Mgea9igub5p53VE3Kn6sp+W52G5xkhvmvBq71LSXh75ZGxmV+lsTWPBk26bhcv9dsVa947tslBJQ9pETZS4te2L7rfb6Lc3w4qjWcF2t73ansh5bj6tJb+y1F8TKl09VStlGl4lPdPXotjfB2fXwo6EneGoeMeQO/7rrwz+sOL8iP26Z2gTxVWznEREBERAREQEREHBVREFREQVEREGUREBOqLi47INKfGGpfPxPDTOd9nHCGtHkTuf1H0WE2S+zWG8x19MC58Y5bmHpIzGMH5Af8AyFm3xfgYy8wVhfpzG7I8Tg7fqtXvceYXu6DcBZW7bV6fpqiqqevoo3tl7PKWh7HZwRnxHmFi/EE8Nrcbhcbj2h8Y+z1OBx7BetwzRtq+E7dzSC/s7cnO42WG8Y8M6IJZ3ve92+gF2cLi+dO6LTxYBXXWW+3/ALVMDy8nQ3yC2Z8GLgW19fbyR9o0StHqNj+y1TRGOGpfkfcbt6LY/wAHYHS8RVFQ3JYxmCR65XbHU6hw27jct0qqJlasoVECICIiAiIgIiIPmqoqgKqKoKiiqAiIghXiXHiGkjlqKWkPaquD+9HCNZi6E6gM46/mvZlcWxucGueQCQ1oyT6Ba0vJqpIKmouFut1TCGnJratks8PU6nCMYcwH8BzpIyDthSNbcZXiS73OSaY7glrRgjAz5e5K8SkozXVsNLG2U63aSYoXSkDxIa3cqXBxdUGUMDMnOkdAP2CyDgUUhnkqauajY+NuGNmuz6F2OpIc0HIWUdtN6besc77daaamprPfavlxhuoUPKzj0e4EKXKWqrTh3DlzjOMDnugaPpzFjz32kwiaols7WOH96esrK5vzdhox818uw2qWBz4aLh2qAaXB9HYqibPzyB8yVPo0+k+tf7arrcC5VPcIbzHNI/7d1k3CV7m4crgI55uRUDflMa7fHq4DKx+BodWTB2zJCctxj6eS+7pWc6OJrRpLQB1yD6Y3yqR56TPhvWj4slaKfmwCeCTSTMZIonjOfwF+XEbdPPbyWWMcHNDhnBGd1pmjoTQUGdE7Y5dzzuF3PZjpvlxcfdbM4Lqe1cO0zg+B7WF0bXU7iY3BpwNOdxt+E9DkeC2ZPdCKBVECIiAiIQgIiIPmgRVAVUVQFVFUBERB5vEL2x2ao1iEtLdBE2rQdRxg6dz16Dc9FqTimaCjtrn0clrE0TsNbBYJaGQHp3ZCd1tfiWSRlsxAKkvdIAOz6BIOpJDnkNZsD3vDw3wtX8duqhwxUsfcKhkTZIY20Tbs2sa4Bw3fnvA5A+7kZ67JPhMeWvquKeqqIKWEcyeTADR4uPgtocL2e72e3x08VJxNTPO744zQmIu6khzyXD6LEOCrIKwfxWsZYpafvMbDdK90W48S1rSfZZUyC2OcYWUvw/md4Rtuk2v5EtVawm07e6430y6hT8dQOPURSUkrD7ajgfRdK6zVBhe+vMztDCXMuXEQjf0/4YRpyug8WWjkEVXDwvQH8TX3qeYD1EbRgj3IXQvtRbZbHWQUF14XeZGYEVss5ZKd/wDkz3T6lXlWGvS4STMmiBGS93XpuvS4atkt3vkcVPS1NToHMe2nlEbgB46z90dN15z5I6ZwgZl2k90+viP1WS/D6ijqW3Contc9axhaBlzuS0ZGcsacyu3yG7DY5IWUR21nwy2SACbkQW93bowHCGDitz6gj6YJ9MrOeBn8ywiTmvl1zyEvkZoeTnHfb4PGCDjqQT4rAp30NTF2CN1LWAOLo7bcra2inzufsJmgN1eQ+pWxeEm6eH6Ql73lwc7VKMPd3j97/bz9VoyewqOigVQEREBMomEDKZTCYQcERVARFcICBVVBxKLkiDGONnDssEc3ZBTgl8hrHOMe2ACYmd6U5IwzYb77gLEq+EPom/0dJUMcHOdNcOGuTCTjbDh3o/cg+qy/jKAzx0jHSsij1lz5Xt1NYGAyaiD1A0Zx4kMB2znH2suPYKW4V9wuU1fcJ2w26j5rWSMyCdchDQG9zLnMILQMDGVb4GGcJPioIKiiqHcH09VBO7MtwpjPK4HcFrgO83cY3WQ1N0BpjrutjnjPcFPFwvK9jyvb4SpeH7ZRxua2J1TUVb6XnMgP9TMCdXLGM6QQd8ADCyqlmoq6IupnRyMa4tJYQQHDYj3WFrzX4bRjiflryK/z08LWP4lNuP4YIeF5Gxgf6gsypJfZqiGRlRxrcWxvaWlsfDZAcD7xrYlTTiWIxc6Vjf8AWUtx8wVj1yjmZJSUDLlX5qLnDStd2p2WN0cyTB8ctIG+VamTl0rbHNY21XZ+CHXy/wA0cNZUOtsWHOqpKZ0T5MnoGuAwfVbbpLfSWihioqCMQU0LMBrfX16knxXk8P3Co/oGmaSUVj7i97p3l7tMDnNjYCTsNgfqupLcLjUcO2+qmNPO+vaxvL78cYkcwSxgEPBbrB0asnDgs74r2ltjy0rHjt9LpLG6lmjdyp43PbFyqhpljDictBGO6Sdg7IwSFnVjj5Vno2ZJ+xad+u/n6rWNE48QV1K7TI6SpZyhI8faOh1aHMkHi+GTS4OxnGOu5O3WgAAAYAGAtaU4RpllyepbekRVFZkIiICiqIIiqIOCoCK4QTCqKoCIqgiKogx7jVrGWd1RKzmQxZ5rBuXsxqDAP9ntjafMEjxWG1E9TbIqqWWQ1FbZqPlcxxyJLlVkasf+IcB7H0WzKykiraZ1PO3Ux2Dj1BBH5gLFKzhKpiZUTw1HbX/xT+KCndHo5r9+4XZPdGTjbwVolDG6lxszql1OOZ/Ldvjt9Ht/cr6gDU73735uXfpniwNqIIZXiCyUkNJsTiatmcHPc4fixqBPufJeNFeqKmq7fDdpNH/WKiurjy34fMA7ls3Hg4gLq8WXiop6Wz0VFBJPW1Mj7nVNEbnEzOJ0tIA8ASq39q1fcz6O/wCMMroHNB6Shp0ldSreyW72CWJwcx991Z/9UBeI228cV1EyaaotlJA8dJBJnHrloXQno71RdmH8TtAFLP2iMsiqHkSY05OB0wOmyxxY7Vnctst62jUPQ4ceOZwruO/cLtCR6HnHH1AXRo/6uwWe1ukLW3G3TUcL8Z5VTSSvdE78j9MLxYp57S63ma4mQUNVLUxvjts+nVJnUCTjbvFKashjit8VNe7W91DWSVkbal7qZxc/OWnUNm7lb7YNgfD+iNXLJfHxOZHUNbPECMaJZGATDHuwH5rOVivw6Fayyvhq6OGnjbK50L4KjnMkDtzg++fqsqUAiqIIiqIIoqiCIqiDiqoqEBERAVREBEVQFPkquUbdTvRJHgXnhqSuqBU0Va6kqXNcHNkhbPDKDj77HePkQQvApOB7rQvmqDBZqt5jIaynfPSFx8i5riMddtK2MBp3znyUc5h6t2TcmmrRw3deYebw3U07I2aY46PiOVrS7Oem2PkvnHwrxE6mlcW3OCX/ABM/mAvb1/F3NXTyK2HUUb33aKpdVuFKyFzTTBp7ziRh2c+WRj1Xa5cOO7Fn3UcjTXn8sXxjmup+ILnA09Yu1NnAI6jLo/1JXclsTn0wZc3CsI/yTRsyfoAszla9zWiNrM6hgDy8d106hjSHOJBdjp1IUbWfe3EGhp8Na0csDDRgD5LsrpW2QaHQ5PdOcHyK7qtCBERECIiAiIgIiIOCoUREKiIgKoiChERAXOFESR9/BcOpURQs69adLG6diXsBI8tSrup3PVEQfRpIAwvNrzyxMGADU7J+YCIg40QDaxwA/wAY/ZeiiJBIiIpQIURBEREBERB//9k=" alt="Student">
+
+            <h3>Bhargavi</h3>
+
+            <p>Web Development</p>
+
+            <button>View Profile</button>
+
+        </div>
+
+        <div class="card">
+
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTySu43QLyaQ2eyhLEGP72KlPbuHaobzOlXrCa0mDmS4g&s=10" alt="Student">
+
+            <h3>Rahul</h3>
+
+            <p>Java Full Stack</p>
+
+            <button>View Profile</button>
+
+        </div>
+
+        <div class="card">
+
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG_YUUj-VI4onTw_JZoaz28GWHKw9VALlMURcDFmd0Ug&s=10" alt="Student">
+
+            <h3>Anjali</h3>
+
+            <p>Python Programming</p>
+
+            <button>View Profile</button>
+
+        </div>
+        <div class="card">
+
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP66xZe_6NzZqJBWm79x8S2MHyt4QklAK-9-jQ-IRAFw&s=10" alt="Student">
+
+            <h3>Rohan</h3>
+
+            <p>Backend Developer</p>
+
+            <button>View Profile</button>
+
+        </div>
+        <div class="card">
+
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbP_y9nypLLYLpROxg_FR93bM-_daymaAnW8QpEcEXLA&s=10" alt="Student">
+
+            <h3>Pooja</h3>
+
+            <p>C Programming</p>
+
+            <button>View Profile</button>
+
+        </div>
+
+    </section>
+
+    <!-- Courses -->
+
+    <h2 class="heading">Available Courses</h2>
+
+    <section class="courses">
+
+        <div class="course">HTML</div>
+
+        <div class="course">CSS</div>
+
+        <div class="course">JavaScript</div>
+
+        <div class="course">React</div>
+
+        <div class="course">Java</div>
+
+        <div class="course">Python</div>
+
+    </section>
+
+    <!-- Registration Form -->
+
+    <h2 class="heading">Student Registration Form</h2>
+
+    <form>
+
+        <label>Student Name</label>
+
+        <input type="text" placeholder="Enter Name">
+
+        <label>Email</label>
+
+        <input type="email" placeholder="Enter Email">
+
+        <label>Age</label>
+
+        <input type="number" placeholder="Enter Age">
+
+        <label>Select Course</label>
+
+        <select>
+
+            <option>HTML</option>
+
+            <option>CSS</option>
+
+            <option>JavaScript</option>
+
+            <option>Java</option>
+
+            <option>Python</option>
+
+        </select>
+
+        <label>Address</label>
+
+        <textarea rows="4" placeholder="Enter Address"></textarea>
+
+        <button type="submit">Register</button>
+
+    </form>
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>© 2026 Student Management Portal | Designed using HTML & CSS</p>
+
+    </footer>
+
+</body>
+
+</html>

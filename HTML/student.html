@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduAdmin — Student Management Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary: #2f6fed;
+    --primary-dark: #1f4fc4;
+    --accent: #17b897;
+    --bg: #f4f6fb;
+    --card: #ffffff;
+    --text: #1f2937;
+    --text-muted: #6b7280;
+    --border: #e5e9f2;
+    --danger: #e0554f;
+    --radius: 10px;
+    --shadow: 0 2px 10px rgba(31, 41, 55, 0.06);
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+
+  body{
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  h1, h2, h3, .brand{
+    font-family: 'Poppins', sans-serif;
+  }
+
+  a{ text-decoration:none; color:inherit; }
+
+  /* ---------------- HEADER ---------------- */
+  header.site-header{
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-inner{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .brand{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .brand .logo-mark{
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  nav.main-nav{
+    display: flex;
+    gap: 6px;
+  }
+  nav.main-nav a{
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+  nav.main-nav a.active{
+    background: rgba(47, 111, 237, 0.1);
+    color: var(--primary);
+  }
+  nav.main-nav a:hover{ color: var(--primary); }
+  .header-actions{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .user-chip{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  .user-avatar{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  /* ---------------- LAYOUT ---------------- */
+  .page-wrap{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 28px 24px 60px;
+  }
+
+  .page-title-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .page-title-row h1{
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  .page-title-row p{
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 2px;
+  }
+
+  .btn{
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.87rem;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.1s ease;
+  }
+  .btn:active{ transform: translateY(1px); }
+  .btn-primary{ background: var(--primary); color: #fff; }
+  .btn-primary:hover{ background: var(--primary-dark); }
+  .btn-outline{
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+  .btn-outline:hover{ background: #f0f2f7; }
+
+  /* ---------------- STATS ---------------- */
+  .stats-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 26px;
+  }
+  .stat-card{
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    box-shadow: var(--shadow);
+  }
+  .stat-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .stat-icon{
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+  }
+  .stat-icon.blue{ background: rgba(47,111,237,0.1); color: var(--primary); }
+  .stat-icon.green{ background: rgba(23,184,151,0.1); color: var(--accent); }
+  .stat-icon.orange{ background: rgba(245,158,11,0.12); color: #d97706; }
+  .stat-icon.red{ background: rgba(224,85,79,0.1); color: var(--danger); }
+  .stat-value{
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-top: 14px;
+  }
+  .stat-label{
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* ---------------- PANEL / CARD ---------------- */
+  .card{
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 22px 24px;
+    margin-bottom: 22px;
+  }
+  .card-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .card-header h2{
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  .card-header p{
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* form */
+  .form-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .field{ display: flex; flex-direction: column; gap: 6px; }
+  .field label{
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+  .field input, .field select{
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #fbfcfe;
+    color: var(--text);
+    outline: none;
+  }
+  .field input:focus, .field select:focus{
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(47,111,237,0.12);
+  }
+  .form-actions{
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  /* search + table head */
+  .table-toolbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .search-box{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 12px;
+    background: #fbfcfe;
+    min-width: 260px;
+  }
+  .search-box input{
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 0.87rem;
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+  }
+  .count-tag{
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  table{ width: 100%; border-collapse: collapse; }
+  thead th{
+    text-align: left;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--text-muted);
+    padding: 0 12px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  tbody td{
+    padding: 13px 12px;
+    font-size: 0.87rem;
+    border-bottom: 1px solid var(--border);
+  }
+  tbody tr:hover{ background: #f8fafc; }
+  .cell-id{ color: var(--text-muted); font-size: 0.82rem; }
+  .cell-name{ font-weight: 600; }
+  .cell-name .sub{
+    display: block;
+    font-size: 0.76rem;
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+
+  .badge{
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+  .badge-active{ background: rgba(23,184,151,0.12); color: #0f8f74; }
+  .badge-inactive{ background: rgba(224,85,79,0.1); color: var(--danger); }
+
+  .gpa-wrap{ display: flex; align-items: center; gap: 8px; }
+  .gpa-bar{ width: 60px; height: 6px; background: var(--border); border-radius: 4px; overflow: hidden; }
+  .gpa-fill{ height: 100%; background: var(--primary); }
+
+  .row-actions{ display: flex; gap: 6px; }
+  .icon-btn{
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 6px 8px;
+    border-radius: 6px;
+    color: var(--text-muted);
+  }
+  .icon-btn:hover{ background: #eef1f7; color: var(--text); }
+  .icon-btn.danger:hover{ color: var(--danger); background: rgba(224,85,79,0.08); }
+
+  .empty-state{
+    text-align: center;
+    padding: 40px 10px;
+    color: var(--text-muted);
+    font-size: 0.87rem;
+  }
+
+  /* ---------------- FOOTER ---------------- */
+  footer.site-footer{
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+  .footer-inner{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 30px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-links{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .footer-links a{
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .footer-links a:hover{ color: var(--primary); }
+  .footer-copy{
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  /* ---------------- RESPONSIVE ---------------- */
+  @media (max-width: 900px){
+    .stats-grid{ grid-template-columns: repeat(2, 1fr); }
+    .form-grid{ grid-template-columns: repeat(2, 1fr); }
+    nav.main-nav{ order: 3; width: 100%; justify-content: flex-start; overflow-x: auto; }
+    table{ display: block; overflow-x: auto; }
+  }
+  @media (max-width: 560px){
+    .stats-grid{ grid-template-columns: 1fr; }
+    .form-grid{ grid-template-columns: 1fr; }
+    .footer-inner{ flex-direction: column; align-items: flex-start; }
+  }
+
+  button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible{
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce){ *{ transition: none !important; } }
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <span class="logo-mark">EA</span>
+      EduAdmin
+    </div>
+    <nav class="main-nav">
+      <a href="#" class="active">Dashboard</a>
+      <a href="#">Students</a>
+      <a href="#">Courses</a>
+      <a href="#">Attendance</a>
+      <a href="#">Reports</a>
+    </nav>
+    <div class="header-actions">
+      <div class="user-chip">
+        <span class="user-avatar">A</span>
+        <span>Admin</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= MAIN ================= -->
+<main class="page-wrap">
+
+  <div class="page-title-row">
+    <div>
+      <h1>Student Management</h1>
+      <p>View, add, and manage all enrolled students in one place.</p>
+    </div>
+    <button class="btn btn-primary" onclick="document.getElementById('fName').focus()">+ Add Student</button>
+  </div>
+
+  <!-- Stats -->
+  <section class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-top">
+        <div class="stat-icon blue">👥</div>
+      </div>
+      <div class="stat-value" id="statTotal">0</div>
+      <div class="stat-label">Total Students</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-top">
+        <div class="stat-icon green">✅</div>
+      </div>
+      <div class="stat-value" id="statActive">0</div>
+      <div class="stat-label">Active Students</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-top">
+        <div class="stat-icon orange">📊</div>
+      </div>
+      <div class="stat-value" id="statGpa">0.0</div>
+      <div class="stat-label">Average GPA</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-top">
+        <div class="stat-icon red">📅</div>
+      </div>
+      <div class="stat-value" id="statAttendance">0%</div>
+      <div class="stat-label">Average Attendance</div>
+    </div>
+  </section>
+
+  <!-- Add / Edit form -->
+  <section class="card">
+    <div class="card-header">
+      <div>
+        <h2 id="formTitle">Add New Student</h2>
+        <p>Fill in the details below to add a student to the system.</p>
+      </div>
+    </div>
+    <div class="form-grid">
+      <div class="field">
+        <label for="fName">Full Name</label>
+        <input id="fName" type="text" placeholder="Amara Okafor">
+      </div>
+      <div class="field">
+        <label for="fClass">Class / Section</label>
+        <input id="fClass" type="text" placeholder="Grade 10 - B">
+      </div>
+      <div class="field">
+        <label for="fEmail">Email Address</label>
+        <input id="fEmail" type="email" placeholder="amara@school.edu">
+      </div>
+      <div class="field">
+        <label for="fGpa">GPA (0–4)</label>
+        <input id="fGpa" type="number" min="0" max="4" step="0.1" placeholder="3.6">
+      </div>
+      <div class="field">
+        <label for="fAttendance">Attendance %</label>
+        <input id="fAttendance" type="number" min="0" max="100" step="1" placeholder="92">
+      </div>
+      <div class="field">
+        <label for="fStatus">Status</label>
+        <select id="fStatus">
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" id="submitBtn" onclick="submitStudent()">Add Student</button>
+        <button class="btn btn-outline" id="cancelEditBtn" onclick="cancelEdit()" style="display:none;">Cancel</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Student table -->
+  <section class="card">
+    <div class="table-toolbar">
+      <div>
+        <h2 style="font-size:1.1rem; font-weight:600;">All Students</h2>
+        <span class="count-tag" id="countTag">0 students shown</span>
+      </div>
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="Search name, class, or email…" oninput="renderTable()">
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Student</th>
+          <th>Class</th>
+          <th>GPA</th>
+          <th>Attendance</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+    <div id="emptyState" class="empty-state" style="display:none;">No students match your search.</div>
+  </section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-copy">© 2026 EduAdmin. All rights reserved.</div>
+    <div class="footer-links">
+      <a href="#">Help Center</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Contact Support</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  let students = [
+    { id: 'S-0001', name: 'Amara Okafor', cls: 'Grade 10 - B', email: 'amara.okafor@school.edu', gpa: 3.7, attendance: 96, status: 'active' },
+    { id: 'S-0002', name: 'Liam Chen', cls: 'Grade 11 - A', email: 'liam.chen@school.edu', gpa: 3.2, attendance: 88, status: 'active' },
+    { id: 'S-0003', name: 'Priya Raman', cls: 'Grade 9 - C', email: 'priya.raman@school.edu', gpa: 3.9, attendance: 99, status: 'active' },
+    { id: 'S-0004', name: 'Diego Fernandez', cls: 'Grade 12 - A', email: 'diego.fernandez@school.edu', gpa: 2.8, attendance: 74, status: 'inactive' },
+    { id: 'S-0005', name: 'Hana Kobayashi', cls: 'Grade 10 - B', email: 'hana.kobayashi@school.edu', gpa: 3.5, attendance: 91, status: 'active' },
+  ];
+
+  let nextIdNum = 6;
+  let editingId = null;
+
+  function formatId(n){ return 'S-' + String(n).padStart(4, '0'); }
+
+  function renderStats(){
+    const total = students.length;
+    const active = students.filter(s => s.status === 'active').length;
+    const avgGpa = total ? (students.reduce((s,x)=>s+Number(x.gpa),0) / total) : 0;
+    const avgAtt = total ? (students.reduce((s,x)=>s+Number(x.attendance),0) / total) : 0;
+    document.getElementById('statTotal').textContent = total;
+    document.getElementById('statActive').textContent = active;
+    document.getElementById('statGpa').textContent = avgGpa.toFixed(2);
+    document.getElementById('statAttendance').textContent = Math.round(avgAtt) + '%';
+  }
+
+  function escapeHtml(str){
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function renderTable(){
+    const query = document.getElementById('searchInput').value.trim().toLowerCase();
+    const body = document.getElementById('tableBody');
+    const filtered = students.filter(s =>
+      s.name.toLowerCase().includes(query) ||
+      s.cls.toLowerCase().includes(query) ||
+      s.email.toLowerCase().includes(query)
+    );
+
+    body.innerHTML = '';
+    document.getElementById('countTag').textContent = filtered.length + ' student' + (filtered.length===1?'':'s') + ' shown';
+    document.getElementById('emptyState').style.display = filtered.length ? 'none' : 'block';
+
+    filtered.forEach(s => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="cell-id">${s.id}</td>
+        <td class="cell-name">${escapeHtml(s.name)}<span class="sub">${escapeHtml(s.email)}</span></td>
+        <td>${escapeHtml(s.cls)}</td>
+        <td>
+          <div class="gpa-wrap">
+            <span>${Number(s.gpa).toFixed(1)}</span>
+            <div class="gpa-bar"><div class="gpa-fill" style="width:${(Number(s.gpa)/4)*100}%"></div></div>
+          </div>
+        </td>
+        <td>${s.attendance}%</td>
+        <td><span class="badge ${s.status==='active'?'badge-active':'badge-inactive'}">${s.status==='active'?'Active':'Inactive'}</span></td>
+        <td>
+          <div class="row-actions">
+            <button class="icon-btn" title="Edit" onclick="startEdit('${s.id}')">✎</button>
+            <button class="icon-btn danger" title="Remove" onclick="deleteStudent('${s.id}')">✕</button>
+          </div>
+        </td>
+      `;
+      body.appendChild(tr);
+    });
+
+    renderStats();
+  }
+
+  function readForm(){
+    return {
+      name: document.getElementById('fName').value.trim(),
+      cls: document.getElementById('fClass').value.trim(),
+      email: document.getElementById('fEmail').value.trim(),
+      gpa: parseFloat(document.getElementById('fGpa').value),
+      attendance: parseInt(document.getElementById('fAttendance').value, 10),
+      status: document.getElementById('fStatus').value,
+    };
+  }
+
+  function clearForm(){
+    ['fName','fClass','fEmail','fGpa','fAttendance'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('fStatus').value = 'active';
+  }
+
+  function submitStudent(){
+    const data = readForm();
+    if(!data.name || !data.cls || !data.email){
+      alert('Please fill in name, class, and email before saving.');
+      return;
+    }
+    if(isNaN(data.gpa)) data.gpa = 0;
+    if(isNaN(data.attendance)) data.attendance = 0;
+
+    if(editingId){
+      const idx = students.findIndex(s => s.id === editingId);
+      if(idx > -1) students[idx] = { ...students[idx], ...data };
+      cancelEdit();
+    } else {
+      students.push({ id: formatId(nextIdNum++), ...data });
+    }
+    clearForm();
+    renderTable();
+  }
+
+  function startEdit(id){
+    const s = students.find(x => x.id === id);
+    if(!s) return;
+    editingId = id;
+    document.getElementById('fName').value = s.name;
+    document.getElementById('fClass').value = s.cls;
+    document.getElementById('fEmail').value = s.email;
+    document.getElementById('fGpa').value = s.gpa;
+    document.getElementById('fAttendance').value = s.attendance;
+    document.getElementById('fStatus').value = s.status;
+    document.getElementById('formTitle').textContent = 'Editing ' + s.name;
+    document.getElementById('submitBtn').textContent = 'Save Changes';
+    document.getElementById('cancelEditBtn').style.display = 'inline-block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function cancelEdit(){
+    editingId = null;
+    clearForm();
+    document.getElementById('formTitle').textContent = 'Add New Student';
+    document.getElementById('submitBtn').textContent = 'Add Student';
+    document.getElementById('cancelEditBtn').style.display = 'none';
+  }
+
+  function deleteStudent(id){
+    const s = students.find(x => x.id === id);
+    if(!s) return;
+    if(!confirm(`Remove ${s.name} from the system? This can't be undone.`)) return;
+    students = students.filter(x => x.id !== id);
+    if(editingId === id) cancelEdit();
+    renderTable();
+  }
+
+  renderTable();
+</script>
+
+</body>
+</html>
