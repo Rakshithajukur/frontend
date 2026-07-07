@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>JavaScript Essentials</h1>
+    <script>
+      /*  console.log("=====   variables =====")
+        let studentName = "Bhargavi";
+        let age = 24;
+        const college = "MRU";
+        console.log(studentName);
+         console.log(age);
+          console.log(college);
+
+          studentName = "Rahul";
+          console.log(studentName);*/
+          /* Operators */
+
+          /*console.log("==== Operators ====");
+          let a = 20;
+          let b = 10;
+          console.log("Addition:", a + b);
+          console.log("Subtraction:", a + b);
+          console.log("Multiplication:", a + b);
+          console.log("Division:", a + b);*/
+
+
+          /*console.log("===== If Else =====");
+          let marks = 75;
+          if(marks >= 35){
+            console.log("Pass");
+          }
+          else{
+            console.log("Fail")
+          }
+          
+        console.log("=== Switch ===");
+        let day = 3;
+        switch(day){
+            case 1:
+            console.log("Monday");
+            break;
+
+            case 2:
+            console.log("Tuesday");
+            break;
+
+            case 3:
+            console.log("Wednesday");
+            break;
+
+            default:
+            console.log("Invalid");
+        }
+          let num = Number(prompt("Enter a number(1-3):"));
+          switch(num){
+            case 1:
+            console.log("Monday");
+            break;
+
+            case 2:
+            console.log("Tuesday");
+            break;
+
+            case 3:
+            console.log("Wednesday");
+            break;
+
+            default:
+            console.log("Invalid");
+        }*/
+
+        /*console.log("=== Functions ===");
+
+        function welcome(){
+            console.log("Welcome Students");
+        }
+        welcome();
+
+        function add(x,y){
+            return x+y;
+        }
+        console.log(add(20, 30));*/
+      /*  const greet = () => {
+            console.log("Hello students");
+        }
+        greet();*/
+
+      
+
+/* ==========================================
+   1. Variables (let & const)
+========================================== */
+
+console.log("===== Variables =====");
+
+let studentName = "Bhargavi";
+let age = 22;
+
+const college = "NRI Institute of Technology";
+
+console.log(studentName);
+console.log(age);
+console.log(college);
+
+studentName = "Rahul";
+console.log(studentName);
+
+
+/* ==========================================
+   2. Operators
+========================================== */
+
+console.log("===== Operators =====");
+
+let a = 20;
+let b = 10;
+
+console.log("Addition:", a + b);
+console.log("Subtraction:", a - b);
+console.log("Multiplication:", a * b);
+console.log("Division:", a / b);
+
+console.log(a > b);
+console.log(a < b);
+console.log(a == b);
+
+console.log(true && false);
+console.log(true || false);
+console.log(!true);
+
+
+/* ==========================================
+   3. Control Flow
+========================================== */
+
+console.log("===== If Else =====");
+
+let marks = 75;
+
+if(marks >= 35){
+    console.log("Pass");
+}
+else{
+    console.log("Fail");
+}
+
+console.log("===== Switch =====");
+
+let day = 3;
+
+switch(day){
+
+case 1:
+console.log("Monday");
+break;
+
+case 2:
+console.log("Tuesday");
+break;
+
+case 3:
+console.log("Wednesday");
+break;
+
+default:
+console.log("Invalid");
+
+}
+
+
+/* ==========================================
+   4. Functions
+========================================== */
+
+console.log("===== Functions =====");
+
+function welcome(){
+
+console.log("Welcome Students");
+
+}
+
+welcome();
+
+function add(x,y){
+
+return x+y;
+
+}
+
+console.log(add(20,30));
+
+
+/* Arrow Function */
+
+const greet = () => {
+
+console.log("Hello Students");
+
+}
+
+greet();
+
+
+/* ==========================================
+   5. Scope
+========================================== */
+
+console.log("===== Scope =====");
+
+let course = "Java";
+
+function demo(){
+
+let topic = "JavaScript";
+
+console.log(course);
+
+console.log(topic);
+
+}
+
+demo();
+
+// console.log(topic); // Error
+
+
+/* ==========================================
+   6. Hoisting
+========================================== */
+
+console.log("===== Hoisting =====");
+
+console.log(number);
+
+var number = 100;
+
+
+/* ==========================================
+   7. Arrays
+========================================== */
+
+console.log("===== Arrays =====");
+
+let students = ["Bhargavi","Rahul","Anjali","Kiran"];
+
+console.log(students);
+
+console.log(students[0]);
+
+console.log(students.length);
+
+
+/* ==========================================
+   8. Array Methods
+========================================== */
+
+console.log("===== map() =====");
+
+let marksArray = [80,90,70];
+
+let updatedMarks = marksArray.map(function(mark){
+
+return mark+5;
+
+});
+
+console.log(updatedMarks);
+
+
+console.log("===== filter() =====");
+
+let passed = marksArray.filter(function(mark){
+
+return mark >=80;
+
+});
+
+console.log(passed);
+
+
+console.log("===== reduce() =====");
+
+let total = marksArray.reduce(function(sum,value){
+
+return sum+value;
+
+},0);
+
+console.log(total);
+
+
+console.log("===== find() =====");
+
+let student = students.find(function(name){
+
+return name=="Rahul";
+
+});
+
+console.log(student);
+
+
+/* ==========================================
+   9. Objects
+========================================== */
+
+console.log("===== Objects =====");
+
+let studentObj = {
+
+name:"Bhargavi",
+
+age:22,
+
+course:"JavaScript"
+
+};
+
+console.log(studentObj);
+
+console.log(studentObj.name);
+
+console.log(studentObj.course);
+
+
+/* ==========================================
+   10. Destructuring
+========================================== */
+
+console.log("===== Destructuring =====");
+
+const {name,course:studentCourse} = studentObj;
+
+console.log(name);
+
+console.log(studentCourse);
+
+
+/* ==========================================
+   11. Spread Operator
+========================================== */
+
+console.log("===== Spread =====");
+
+let array1 = [1,2,3];
+
+let array2 = [...array1];
+
+console.log(array2);
+
+let array3 = [...array1,4,5];
+
+console.log(array3);
+
+
+/* ==========================================
+   12. Rest Operator
+========================================== */
+
+console.log("===== Rest =====");
+
+function totalMarks(...numbers){
+
+console.log(numbers);
+
+}
+
+totalMarks(10,20,30,40,50);
+
+
+/* ==========================================
+   13. ES6 Modules
+========================================== */
+
+console.log("===== ES6 Modules =====");
+
+console.log("Modules are created using export and import.");
+
+console.log("Example:");
+
+console.log("export function add(){}");
+
+console.log("import {add} from './math.js'");
+
+
+/* ==========================================
+   14. Mini Project
+========================================== */
+
+console.log("===== Student Management =====");
+
+let studentList = [
+
+{name:"Bhargavi",marks:90},
+
+{name:"Rahul",marks:75},
+
+{name:"Anjali",marks:95},
+
+{name:"Kiran",marks:60}
+
+];
+
+console.log(studentList);
+
+let topper = studentList.filter(function(student){
+
+return student.marks>=90;
+
+});
+
+console.log("Top Students");
+
+console.log(topper);
+
+let names = studentList.map(function(student){
+
+return student.name;
+
+});
+
+console.log("Student Names");
+
+console.log(names);
+
+let totalMarksValue = studentList.reduce(function(sum,student){
+
+return sum+student.marks;
+
+},0);
+
+console.log("Total Marks");
+
+console.log(totalMarksValue);
+
+let search = studentList.find(function(student){
+
+return student.name=="Rahul";
+
+});
+
+console.log("Search Result");
+
+console.log(search);
+
+
+
+          
+    </script>
+
+
+</body>
+</html>
