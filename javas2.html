@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Dashboard</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#eef2f7;
+}
+
+header{
+background:#0d6efd;
+color:white;
+padding:20px;
+text-align:center;
+}
+
+.container{
+width:90%;
+max-width:1100px;
+margin:20px auto;
+}
+
+.card{
+
+background:white;
+
+padding:20px;
+
+margin-bottom:20px;
+
+border-radius:10px;
+
+box-shadow:0 2px 10px rgba(0,0,0,0.2);
+
+}
+
+h2{
+
+margin-bottom:15px;
+
+color:#0d6efd;
+
+}
+
+input,select{
+
+width:100%;
+
+padding:12px;
+
+margin:10px 0;
+
+border:1px solid #ccc;
+
+border-radius:5px;
+
+}
+
+button{
+
+padding:12px 18px;
+
+background:#0d6efd;
+
+color:white;
+
+border:none;
+
+border-radius:5px;
+
+cursor:pointer;
+
+margin:5px;
+
+}
+
+button:hover{
+
+background:#084298;
+
+}
+
+.student{
+
+background:#f8f9fa;
+
+padding:15px;
+
+margin-top:10px;
+
+border-left:5px solid #0d6efd;
+
+border-radius:5px;
+
+}
+
+.student h3{
+
+margin-bottom:10px;
+
+}
+
+#studentList{
+
+margin-top:20px;
+
+}
+
+.dark{
+
+background:#222;
+
+color:white;
+
+}
+
+.dark .card{
+
+background:#333;
+
+color:white;
+
+}
+
+.dark input,
+
+.dark select{
+
+background:#555;
+
+color:white;
+
+border:none;
+
+}
+
+.highlight{
+
+background:#d4edda!important;
+
+border-left:5px solid green;
+
+}
+
+.parent{
+
+background:#cfe2ff;
+
+padding:25px;
+
+margin-top:20px;
+
+}
+
+.child{
+
+background:#ffc107;
+
+padding:25px;
+
+margin-top:15px;
+
+text-align:center;
+
+cursor:pointer;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1 id="title">
+
+Student Dashboard
+
+</h1>
+
+<p>
+
+JavaScript DOM & Events Project
+
+</p>
+
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h2>Add Student</h2>
+
+<input
+type="text"
+id="name"
+placeholder="Enter Student Name">
+
+<select id="course">
+
+<option>HTML</option>
+
+<option>CSS</option>
+
+<option>JavaScript</option>
+
+<option>Java</option>
+
+<option>Python</option>
+
+</select>
+
+<button id="addBtn">
+
+Add Student
+
+</button>
+
+<button onclick="toggleTheme()">
+
+Dark Mode
+
+</button>
+
+<button onclick="highlightStudents()">
+
+Highlight Students
+
+</button>
+
+<p>
+
+<b>Total Students :</b>
+
+<span id="count">
+
+0
+
+</span>
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>Search Student</h2>
+
+<input
+type="text"
+id="search"
+placeholder="Enter Student Name">
+
+<button onclick="searchStudent()">
+
+Search
+
+</button>
+
+<p id="searchResult">
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>Student List</h2>
+
+<div id="studentList">
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Event Bubbling Demo</h2>
+
+<div
+class="parent"
+id="parent">
+
+Parent
+
+<div
+class="child"
+id="child">
+
+Click Me
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+// ============================
+// JavaScript DOM & Events
+// ============================
+
+// Array to store students
+let students = [];
+
+// getElementById() + addEventListener()
+let addButton = document.getElementById("addBtn");
+
+addButton.addEventListener("click", addStudent);
+
+// ============================
+// Add Student
+// ============================
+
+function addStudent(){
+
+    let name = document.getElementById("name").value.trim();
+
+    let course = document.getElementById("course").value;
+
+    if(name==""){
+
+        alert("Please Enter Student Name");
+
+        return;
+
+    }
+
+    // Object
+    let student = {
+
+        name:name,
+
+        course:course
+
+    };
+
+    // Array
+    students.push(student);
+
+    displayStudents();
+
+    document.getElementById("name").value="";
+
+}
+
+// ============================
+// Display Students
+// ============================
+
+function displayStudents(){
+
+    let output="";
+
+    students.forEach(function(student,index){
+
+        output += `
+
+        <div class="student">
+
+        <h3>${student.name}</h3>
+
+        <p><b>Course :</b> ${student.course}</p>
+
+        <button onclick="deleteStudent(${index})">
+
+        Delete
+
+        </button>
+
+        </div>
+
+        `;
+
+    });
+
+    document.getElementById("studentList").innerHTML = output;
+
+    document.getElementById("count").innerHTML = students.length;
+
+    document.querySelector("#title").innerHTML =
+    "Student Dashboard ("+students.length+")";
+
+}
+
+// ============================
+// Delete Student
+// ============================
+
+function deleteStudent(index){
+
+    students.splice(index,1);
+
+    displayStudents();
+
+}
+
+// ============================
+// Search Student
+// ============================
+
+function searchStudent(){
+
+    let searchName =
+    document.getElementById("search").value.toLowerCase();
+
+    let result =
+    students.find(function(student){
+
+        return student.name.toLowerCase()==searchName;
+
+    });
+
+    if(result){
+
+        document.getElementById("searchResult").innerHTML=
+
+        "Student Found : "+result.name+
+        " ("+result.course+")";
+
+    }
+
+    else{
+
+        document.getElementById("searchResult").innerHTML=
+
+        "Student Not Found";
+
+    }
+
+}
+
+// ============================
+// Dark Mode
+// ============================
+
+function toggleTheme(){
+
+    document.body.classList.toggle("dark");
+
+}
+
+// ============================
+// Highlight Student Cards
+// ============================
+
+function highlightStudents(){
+
+    let cards = document.querySelectorAll(".student");
+
+    cards.forEach(function(card){
+
+        card.classList.toggle("highlight");
+
+    });
+
+}
+// ============================
+// getElementsByClassName()
+// ============================
+
+function changeStudentColor(){
+
+    let cards = document.getElementsByClassName("student");
+
+    for(let i=0; i<cards.length; i++){
+
+        cards[i].style.background = "#d1e7dd";
+        cards[i].style.borderLeft = "5px solid green";
+
+    }
+
+}
+
+// ============================
+// getElementsByTagName()
+// ============================
+
+function changeParagraphColor(){
+
+    let paragraphs = document.getElementsByTagName("p");
+
+    for(let i=0; i<paragraphs.length; i++){
+
+        paragraphs[i].style.color = "blue";
+
+    }
+
+}
+
+// ============================
+// createElement() Example
+// ============================
+
+function createMessage(){
+
+    let message = document.createElement("h3");
+
+    message.innerHTML = "Welcome to JavaScript DOM!";
+
+    document.body.appendChild(message);
+
+}
+
+// ============================
+// remove() Example
+// ============================
+
+function removeLastStudent(){
+
+    let cards = document.querySelectorAll(".student");
+
+    if(cards.length > 0){
+
+        cards[cards.length-1].remove();
+
+    }
+
+}
+
+// ============================
+// Event Bubbling
+// ============================
+
+document.getElementById("parent")
+
+.addEventListener("click",function(){
+
+    alert("Parent Div Clicked");
+
+});
+
+document.getElementById("child")
+
+.addEventListener("click",function(){
+
+    alert("Child Div Clicked");
+
+    // Uncomment the next line to stop bubbling
+    // event.stopPropagation();
+
+});
+
+</script>
+
+</body>
+</html>
