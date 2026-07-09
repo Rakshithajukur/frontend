@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Student Management System</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+
+background:#edf2f7;
+
+}
+
+header{
+
+background:#2563eb;
+
+color:white;
+
+padding:20px;
+
+text-align:center;
+
+}
+
+.container{
+
+width:95%;
+
+max-width:1200px;
+
+margin:20px auto;
+
+}
+
+.card{
+
+background:white;
+
+padding:20px;
+
+margin-bottom:20px;
+
+border-radius:10px;
+
+box-shadow:0 3px 10px rgba(0,0,0,.2);
+
+}
+
+h2{
+
+margin-bottom:15px;
+
+color:#2563eb;
+
+}
+
+input,select{
+
+width:100%;
+
+padding:12px;
+
+margin:10px 0;
+
+border:1px solid #ccc;
+
+border-radius:5px;
+
+outline:none;
+
+}
+
+input:focus{
+
+border:2px solid #2563eb;
+
+}
+
+button{
+
+padding:12px 18px;
+
+margin:5px;
+
+background:#2563eb;
+
+color:white;
+
+border:none;
+
+border-radius:5px;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+button:hover{
+
+background:#1e40af;
+
+}
+
+.student{
+
+background:#f8fafc;
+
+padding:15px;
+
+margin-top:15px;
+
+border-left:5px solid #2563eb;
+
+border-radius:8px;
+
+}
+
+.student h3{
+
+margin-bottom:10px;
+
+}
+
+.student p{
+
+margin:5px 0;
+
+}
+
+.success{
+
+color:green;
+
+font-weight:bold;
+
+}
+
+.error{
+
+color:red;
+
+font-weight:bold;
+
+}
+
+.loading{
+
+text-align:center;
+
+display:none;
+
+font-size:20px;
+
+color:#2563eb;
+
+margin-top:15px;
+
+}
+
+.spinner{
+
+width:40px;
+
+height:40px;
+
+border:5px solid lightgray;
+
+border-top:5px solid blue;
+
+border-radius:50%;
+
+margin:15px auto;
+
+animation:spin 1s linear infinite;
+
+}
+
+@keyframes spin{
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+.dark{
+
+background:#222;
+
+color:white;
+
+}
+
+.dark .card{
+
+background:#333;
+
+color:white;
+
+}
+
+.dark input,
+
+.dark select{
+
+background:#555;
+
+color:white;
+
+border:none;
+
+}
+
+.dark .student{
+
+background:#444;
+
+}
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+margin-top:15px;
+
+}
+
+table th{
+
+background:#2563eb;
+
+color:white;
+
+padding:10px;
+
+}
+
+table td{
+
+padding:10px;
+
+border:1px solid #ccc;
+
+text-align:center;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1 id="title">
+
+Student Management System
+
+</h1>
+
+<p>
+
+JavaScript Async Programming & APIs Project
+
+</p>
+
+</header>
+
+<div class="container">
+
+<!-- Registration Form -->
+
+<div class="card">
+
+<h2>Student Registration</h2>
+
+<input
+type="text"
+id="name"
+placeholder="Enter Student Name">
+
+<input
+type="email"
+id="email"
+placeholder="Enter Email">
+
+<input
+type="number"
+id="age"
+placeholder="Enter Age">
+
+<select id="course">
+
+<option>Java</option>
+
+<option>Python</option>
+
+<option>JavaScript</option>
+
+<option>React</option>
+
+<option>Spring Boot</option>
+
+</select>
+
+<button id="registerBtn">
+
+Register Student
+
+</button>
+
+<button onclick="toggleTheme()">
+
+Dark Mode
+
+</button>
+
+<button onclick="loadStudents()">
+
+Load Students From API
+
+</button>
+
+</div>
+
+<!-- Search -->
+
+<div class="card">
+
+<h2>Search Student</h2>
+
+<input
+type="text"
+id="search"
+placeholder="Search Student">
+
+<button onclick="searchStudent()">
+
+Search
+
+</button>
+
+<p id="searchResult"></p>
+
+</div>
+
+<!-- Total -->
+
+<div class="card">
+
+<h2>
+
+Total Students :
+<span id="count">
+
+0
+
+</span>
+
+</h2>
+
+</div>
+
+<!-- Loading -->
+
+<div
+class="loading"
+id="loading">
+
+<div class="spinner">
+
+</div>
+
+Loading Students...
+
+</div>
+
+<!-- Student List -->
+
+<div class="card">
+
+<h2>Student List</h2>
+
+<div id="studentList">
+
+</div>
+
+</div>
+
+<!-- API Data -->
+
+<div class="card">
+
+<h2>Students From API</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+
+<th>Name</th>
+
+<th>Email</th>
+
+<th>Company</th>
+
+</tr>
+
+</thead>
+
+<tbody id="tableBody">
+
+</tbody>
+
+</table>
+
+</div>
+
+<!-- Output -->
+
+<div class="card">
+
+<h2>Output</h2>
+
+<p id="output">
+
+Welcome Students...
+
+</p>
+
+</div>
+
+<script>
+
+//=========================================
+// Student Array
+//=========================================
+
+let students = [];
+
+let output = document.getElementById("output");
+
+//=========================================
+// Register Button Event
+//=========================================
+
+document.getElementById("registerBtn")
+.addEventListener("click",registerStudent);
+
+
+//=========================================
+// CALLBACK
+//=========================================
+
+function welcomeMessage(name,callback){
+
+setTimeout(function(){
+
+callback("Welcome "+name+" 🎉");
+
+},1000);
+
+}
+
+
+//=========================================
+// PROMISE
+//=========================================
+
+function saveStudent(student){
+
+return new Promise(function(resolve,reject){
+
+setTimeout(function(){
+
+if(student.name!=""){
+
+resolve("Student Registered Successfully ✅");
+
+}
+
+else{
+
+reject("Student Registration Failed ❌");
+
+}
+
+},1500);
+
+});
+
+}
+
+
+//=========================================
+// REGISTER STUDENT
+//=========================================
+
+async function registerStudent(){
+
+let name=document.getElementById("name").value;
+
+let email=document.getElementById("email").value;
+
+let age=document.getElementById("age").value;
+
+let course=document.getElementById("course").value;
+
+if(name=="" || email=="" || age==""){
+
+alert("Please Fill All Fields");
+
+return;
+
+}
+
+let student={
+
+name:name,
+
+email:email,
+
+age:age,
+
+course:course
+
+};
+
+try{
+
+// Promise
+let result=await saveStudent(student);
+
+output.innerHTML="<span class='success'>"+result+"</span>";
+
+// Callback
+welcomeMessage(name,function(message){
+
+output.innerHTML+="<br>"+message;
+
+});
+
+// Add Student
+students.push(student);
+
+displayStudents();
+
+// Clear Form
+document.getElementById("name").value="";
+document.getElementById("email").value="";
+document.getElementById("age").value="";
+document.getElementById("course").selectedIndex=0;
+
+}
+
+catch(error){
+
+output.innerHTML="<span class='error'>"+error+"</span>";
+
+}
+
+}
+
+
+//=========================================
+// DISPLAY STUDENTS
+//=========================================
+
+function displayStudents(){
+
+let list=document.getElementById("studentList");
+
+list.innerHTML="";
+
+students.forEach(function(student,index){
+
+let card=document.createElement("div");
+
+card.className="student";
+
+card.innerHTML=`
+
+<h3>${student.name}</h3>
+
+<p><b>Email :</b> ${student.email}</p>
+
+<p><b>Age :</b> ${student.age}</p>
+
+<p><b>Course :</b> ${student.course}</p>
+
+<button onclick="deleteStudent(${index})">
+
+Delete
+
+</button>
+
+`;
+
+list.appendChild(card);
+
+});
+
+document.getElementById("count").innerHTML=students.length;
+
+}
+
+
+//=========================================
+// DELETE STUDENT
+//=========================================
+
+function deleteStudent(index){
+
+students.splice(index,1);
+
+displayStudents();
+
+output.innerHTML="<span class='success'>Student Deleted Successfully</span>";
+
+}
+
+
+//=========================================
+// SEARCH STUDENT
+//=========================================
+
+function searchStudent(){
+
+let search=document.getElementById("search").value.toLowerCase();
+
+let student=students.find(function(item){
+
+return item.name.toLowerCase()==search;
+
+});
+
+if(student){
+
+document.getElementById("searchResult").innerHTML=
+
+"<span class='success'>Student Found : "+student.name+
+" ("+student.course+")</span>";
+
+}
+
+else{
+
+document.getElementById("searchResult").innerHTML=
+
+"<span class='error'>Student Not Found</span>";
+
+}
+
+}
+
+//=========================================
+// FETCH API
+//=========================================
+
+async function loadStudents(){
+
+let loading=document.getElementById("loading");
+
+loading.style.display="block";
+
+document.getElementById("tableBody").innerHTML="";
+
+try{
+
+// Fetch Data
+
+let response=await fetch("https://jsonplaceholder.typicode.com/users");
+
+// Error Handling
+
+if(!response.ok){
+
+throw new Error("Unable to Fetch Data");
+
+}
+
+// Convert JSON
+
+let users=await response.json();
+
+loading.style.display="none";
+
+let table=document.getElementById("tableBody");
+
+users.forEach(function(user){
+
+table.innerHTML+=`
+
+<tr>
+
+<td>${user.id}</td>
+
+<td>${user.name}</td>
+
+<td>${user.email}</td>
+
+<td>${user.company.name}</td>
+
+</tr>
+
+`;
+
+});
+
+output.innerHTML="<span class='success'>API Data Loaded Successfully ✅</span>";
+
+}
+
+catch(error){
+
+loading.style.display="none";
+
+output.innerHTML="<span class='error'>"+error.message+"</span>";
+
+}
+
+}
+
+
+
+//=========================================
+// DARK MODE
+//=========================================
+
+function toggleTheme(){
+
+document.body.classList.toggle("dark");
+
+}
+
+
+
+//=========================================
+// CALLBACK DEMO
+//=========================================
+
+function callbackExample(){
+
+welcomeMessage("Students",function(message){
+
+alert(message);
+
+});
+
+}
+
+
+
+//=========================================
+// PROMISE DEMO
+//=========================================
+
+function promiseExample(){
+
+saveStudent({
+
+name:"Demo Student"
+
+})
+
+.then(function(result){
+
+console.log(result);
+
+})
+
+.catch(function(error){
+
+console.log(error);
+
+});
+
+}
+
+
+
+//=========================================
+// ASYNC/AWAIT DEMO
+//=========================================
+
+async function asyncExample(){
+
+try{
+
+let result=await saveStudent({
+
+name:"Async Student"
+
+});
+
+console.log(result);
+
+}
+
+catch(error){
+
+console.log(error);
+
+}
+
+}
+
+
+
+//=========================================
+// PAGE LOADED
+//=========================================
+
+window.onload=function(){
+
+output.innerHTML=
+
+"<span class='success'>Student Management System Ready 🚀</span>";
+
+};
+
+</script>
+
+</body>
+
+</html>
